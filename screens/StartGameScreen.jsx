@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginVertical: 10,
     alignItems: 'center',
+    fontFamily: 'open-sans-bold',
   },
 
   inputContainer: {

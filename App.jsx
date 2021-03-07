@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 
 import Header from './components/Header';
 import GameOverScreen from './screens/GameOverScreen';
@@ -10,6 +12,17 @@ import StartGameScreen from './screens/StartGameScreen';
 export default function App() {
   const [userNumber, setUserNumber] = useState();
   const [guessRounds, setGuessRounds] = useState(0);
+
+  let [fontLoaded] = useFonts({
+    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+  });
+
+  if (!fontLoaded) {
+    return (
+      <AppLoading />
+    );
+  }
 
   const newGameHandler = () => {
     setGuessRounds(0);
@@ -31,7 +44,13 @@ export default function App() {
       <GameScreen userChoice={userNumber} onGameOver={gameOverHadnler} />
     );
   } else if (guessRounds > 0) {
-    content = <GameOverScreen rounds={guessRounds} guessNumber={userNumber} onNewGame={newGameHandler} />;
+    content = (
+      <GameOverScreen
+        rounds={guessRounds}
+        guessNumber={userNumber}
+        onNewGame={newGameHandler}
+      />
+    );
   }
 
   return (
