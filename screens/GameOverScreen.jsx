@@ -4,16 +4,22 @@ import { View, StyleSheet, Button, Image } from 'react-native';
 import BodyText from '../components/BodyText';
 import TitleText from '../components/TitleText';
 
-import img from '../assets/success.png';
-
-const GameOverScreen = ({rounds, guessNumber, onNewGame}) => {
+const GameOverScreen = ({ rounds, guessNumber, onNewGame }) => {
   return (
     <View style={styles.screen}>
       <TitleText>The Game is Over!</TitleText>
-      <Image source={img} style={styles.image} />
+      <View style={styles.imageContainer}>
+        <Image
+          source={{
+            uri:
+              'https://tgr.scdn2.secure.raxcdn.com/images/wysiwyg/_article/istockphoto-485966046-612x612.jpg',
+          }}
+          style={styles.image}
+        />
+      </View>
       <BodyText>Nubmer of Rounds: {rounds}</BodyText>
       <BodyText>Guess Number: {guessNumber}</BodyText>
-      <Button title='New Game' onPress={onNewGame} />
+      <Button title="New Game" onPress={onNewGame} />
     </View>
   );
 };
@@ -27,9 +33,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  imageContainer: {
+    width: 300,
+    height: 300,
+    borderRadius: 150,
+    borderWidth: 3,
+    borderColor: 'black',
+    marginVertical: 30,
+    overflow: 'hidden',
+  },
+
   image: {
-    width: 100,
-    height: 100,
-    marginVertical: 12,
-  }
+    width: '100%',
+    height: '100%',
+  },
 });
