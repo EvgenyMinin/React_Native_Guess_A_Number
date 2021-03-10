@@ -14,9 +14,9 @@ import Card from '../components/Card';
 import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer';
 import TitleText from '../components/TitleText';
-import colors from '../constants/colors';
+import { colors } from '../constants/colors';
 
-const StartGameScreen = ({onStartGame}) => {
+const StartGameScreen = ({ onStartGame }) => {
   const [enteredValue, setEnteredValue] = useState('');
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState();
@@ -59,7 +59,10 @@ const StartGameScreen = ({onStartGame}) => {
         <NumberContainer>
           <Text>{selectedNumber}</Text>
         </NumberContainer>
-        <Button title="Start game" onPress={() => onStartGame(selectedNumber)} />
+        <Button
+          title="Start game"
+          onPress={() => onStartGame(selectedNumber)}
+        />
       </Card>
     );
   }
@@ -150,5 +153,5 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     fontSize: 18,
     alignItems: 'center',
-  }
+  },
 });
