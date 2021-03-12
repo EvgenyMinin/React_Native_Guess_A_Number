@@ -4,9 +4,12 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { generateRandomBetween } from './utils/generateRandomBetween';
 
+import { colors } from '../constants/colors';
+
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
 import MainButton from '../components/MainButton';
+import BodyText from '../components/BodyText';
 
 const GameScreen = ({ userChoice, onGameOver }) => {
   const initialGuess = generateRandomBetween(1, 100, userChoice);
@@ -48,6 +51,13 @@ const GameScreen = ({ userChoice, onGameOver }) => {
     setPastGuesses((curPastGuess) => [nextNumber, ...curPastGuess]);
   };
 
+  const renderGuessListItem = (value, numOfRound) => (
+    <View key={value} style={styles.guessListItem}>
+      <BodyText>#{numOfRound}</BodyText>
+      <BodyText>{value}</BodyText>
+    </View>
+  );
+
   return (
     <View style={styles.screen}>
       <Text>Opponent's Guess</Text>
@@ -60,13 +70,11 @@ const GameScreen = ({ userChoice, onGameOver }) => {
           <Ionicons name="md-add" size={24} color="white" />
         </MainButton>
       </Card>
-      <ScrollView>
-        {pastGuesses.map((guess) => (
-          <View>
-            <Text>{guess}</Text>
-          </View>
-        ))}
-      </ScrollView>
+      <View style={styles.guessListContainer}>
+        <ScrollView>
+          {pastGuesses.map((guess, index) => renderGuessListItem(guess, pastGuesses.length - index))}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -85,6 +93,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 20,
     width: 375,
-    maxWidth: '80%',
+    maxWidth: '90%',
+  },
+
+  guessListContainer: {
+    flex: 1,
+    width: '80%',
+  },
+
+  guessListItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderColor: colors.border,
+    borderWidth: 1,
+    padding: 15,
+    marginTop: 15,
   },
 });
