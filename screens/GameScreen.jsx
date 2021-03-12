@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Alert, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 import { generateRandomBetween } from './utils/generateRandomBetween';
 
@@ -53,9 +54,11 @@ const GameScreen = ({ userChoice, onGameOver }) => {
       <Text>Opponent's Guess</Text>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card style={styles.buttonListContainer}>
-        <MainButton onPress={() => nextGuessHandler('lower')}>LOWER</MainButton>
+        <MainButton onPress={() => nextGuessHandler('lower')}>
+          <Ionicons name="md-remove" size={24} color="white" />
+        </MainButton>
         <MainButton onPress={() => nextGuessHandler('greater')}>
-          GREATER
+          <Ionicons name="md-add" size={24} color="white" />
         </MainButton>
       </Card>
     </View>
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 20,
-    width: 300,
+    width: 375,
     maxWidth: '80%',
   },
 });
