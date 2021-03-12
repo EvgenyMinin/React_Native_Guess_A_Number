@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, Alert, StyleSheet } from 'react-native';
 
 import { generateRandomBetween } from './utils/generateRandomBetween';
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
+import MainButton from '../components/MainButton';
 
 const GameScreen = ({ userChoice, onGameOver }) => {
   const [currentGuess, setCurrentGuess] = useState(
@@ -26,10 +27,9 @@ const GameScreen = ({ userChoice, onGameOver }) => {
       (direction === 'lower' && currentGuess < userChoice) ||
       (direction === 'greater' && currentGuess > userChoice)
     ) {
-      Alert.alert(
-        'Don\'t lie!',
-        'You know that this is wrong...', [{ text: 'Sorry!', style: 'cancel' }]
-      );
+      Alert.alert('Do not lie!', 'You know that this is wrong...', [
+        { text: 'Sorry!', style: 'cancel' },
+      ]);
       return;
     }
 
@@ -39,9 +39,13 @@ const GameScreen = ({ userChoice, onGameOver }) => {
       currentLow.current = currentGuess;
     }
 
-    const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
+    const nextNumber = generateRandomBetween(
+      currentLow.current,
+      currentHigh.current,
+      currentGuess
+    );
     setCurrentGuess(nextNumber);
-    setRounds(curRounds => curRounds + 1);
+    setRounds((curRounds) => curRounds + 1);
   };
 
   return (
@@ -49,8 +53,10 @@ const GameScreen = ({ userChoice, onGameOver }) => {
       <Text>Opponent's Guess</Text>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card style={styles.buttonListContainer}>
-        <Button title="Lower" onPress={() => nextGuessHandler('lower')} />
-        <Button title="Greater" onPress={() => nextGuessHandler('greater')} />
+        <MainButton onPress={() => nextGuessHandler('lower')}>LOWER</MainButton>
+        <MainButton onPress={() => nextGuessHandler('greater')}>
+          GREATER
+        </MainButton>
       </Card>
     </View>
   );
