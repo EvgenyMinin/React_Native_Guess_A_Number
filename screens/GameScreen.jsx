@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Alert, StyleSheet } from 'react-native';
+import { View, Text, Alert, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { generateRandomBetween } from './utils/generateRandomBetween';
@@ -9,17 +9,16 @@ import Card from '../components/Card';
 import MainButton from '../components/MainButton';
 
 const GameScreen = ({ userChoice, onGameOver }) => {
-  const [currentGuess, setCurrentGuess] = useState(
-    generateRandomBetween(1, 100, userChoice)
-  );
-  const [rounds, setRounds] = useState(0);
+  const initialGuess = generateRandomBetween(1, 100, userChoice);
+  const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [pastGuesses, setPastGuesses] = useState([initialGuess]);
 
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
 
   useEffect(() => {
     if (currentGuess === userChoice) {
-      onGameOver(rounds);
+      onGameOver(pastGuesses.length);
     }
   }, [currentGuess, userChoice, onGameOver]);
 
@@ -37,7 +36,7 @@ const GameScreen = ({ userChoice, onGameOver }) => {
     if (direction === 'lower') {
       currentHigh.current = currentGuess;
     } else {
-      currentLow.current = currentGuess;
+      currentLow.current = currentGuess + 1;
     }
 
     const nextNumber = generateRandomBetween(
@@ -46,7 +45,7 @@ const GameScreen = ({ userChoice, onGameOver }) => {
       currentGuess
     );
     setCurrentGuess(nextNumber);
-    setRounds((curRounds) => curRounds + 1);
+    setPastGuesses((curPastGuess) => [nextNumber, ...curPastGuess]);
   };
 
   return (
@@ -61,6 +60,13 @@ const GameScreen = ({ userChoice, onGameOver }) => {
           <Ionicons name="md-add" size={24} color="white" />
         </MainButton>
       </Card>
+      <ScrollView>
+        {pastGuesses.map((guess) => (
+          <View>
+            <Text>{guess}</Text>
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 };
