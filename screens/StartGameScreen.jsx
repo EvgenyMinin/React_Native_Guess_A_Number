@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  Dimensions,
 } from 'react-native';
 
 import BodyText from '../components/BodyText';
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    width: 100,
+    width: Dimensions.get('window').width / 4,
     marginVertical: 6,
   },
 
