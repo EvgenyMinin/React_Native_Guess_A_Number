@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Alert, StyleSheet, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  Alert,
+  StyleSheet,
+  FlatList,
+  Dimensions,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { generateRandomBetween } from './utils/generateRandomBetween';
@@ -85,14 +92,14 @@ const styles = StyleSheet.create({
   buttonListContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 20,
+    marginTop: Dimensions.get('window').height > 600 ? 20 : 10,
     width: 375,
     maxWidth: '90%',
   },
 
   guessListContainer: {
     flex: 1,
-    width: '80%',
+    width: Dimensions.get('window').width > 375 ? '60%' : '80%',
   },
 
   listContent: {
