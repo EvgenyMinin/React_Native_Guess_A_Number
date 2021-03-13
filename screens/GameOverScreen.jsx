@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 
 import BodyText from '../components/BodyText';
 import MainButton from '../components/MainButton';
@@ -8,26 +15,28 @@ import { colors } from '../constants/colors';
 
 const GameOverScreen = ({ rounds, guessNumber, onNewGame }) => {
   return (
-    <View style={styles.screen}>
-      <TitleText>The Game is Over!</TitleText>
-      <View style={styles.imageContainer}>
-        <Image
-          source={{
-            uri:
-              'https://tgr.scdn2.secure.raxcdn.com/images/wysiwyg/_article/istockphoto-485966046-612x612.jpg',
-          }}
-          style={styles.image}
-        />
+    <ScrollView>
+      <View style={styles.screen}>
+        <TitleText>The Game is Over!</TitleText>
+        <View style={styles.imageContainer}>
+          <Image
+            source={{
+              uri:
+                'https://tgr.scdn2.secure.raxcdn.com/images/wysiwyg/_article/istockphoto-485966046-612x612.jpg',
+            }}
+            style={styles.image}
+          />
+        </View>
+        <View style={styles.resultContainer}>
+          <BodyText style={styles.resultText}>
+            Your phone needed <Text style={styles.highlight}>{rounds}</Text>
+            &nbsp;rounds to guess the number&nbsp;
+            <Text style={styles.highlight}>{guessNumber}</Text>
+          </BodyText>
+        </View>
+        <MainButton onPress={onNewGame}>NEW GAME</MainButton>
       </View>
-      <View style={styles.resultContainer}>
-        <BodyText style={styles.resultText}>
-          Your phone needed <Text style={styles.highlight}>{rounds}</Text>&nbsp;
-          rounds to guess the number&nbsp;
-          <Text style={styles.highlight}>{guessNumber}</Text>
-        </BodyText>
-      </View>
-      <MainButton onPress={onNewGame}>NEW GAME</MainButton>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -41,12 +50,12 @@ const styles = StyleSheet.create({
   },
 
   imageContainer: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
+    width: Dimensions.get('window').width * 0.7,
+    height: Dimensions.get('window').width * 0.7,
+    borderRadius: (Dimensions.get('window').width * 0.7) / 2,
     borderWidth: 3,
     borderColor: 'black',
-    marginVertical: 30,
+    marginVertical: Dimensions.get('window').height / 30,
     overflow: 'hidden',
   },
 
@@ -56,13 +65,13 @@ const styles = StyleSheet.create({
   },
 
   resultContainer: {
-    marginHorizontal: 60,
-    marginVertical: 10,
+    marginHorizontal: 30,
+    marginVertical: Dimensions.get('window').height / 60,
   },
 
   resultText: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: Dimensions.get('window').height < 400 ? 16 : 20,
   },
 
   highlight: {
