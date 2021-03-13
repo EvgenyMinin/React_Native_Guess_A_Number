@@ -71,8 +71,10 @@ const GameScreen = ({ userChoice, onGameOver }) => {
         </MainButton>
       </Card>
       <View style={styles.guessListContainer}>
-        <ScrollView>
-          {pastGuesses.map((guess, index) => renderGuessListItem(guess, pastGuesses.length - index))}
+        <ScrollView contentContainerStyle={styles.listContent}>
+          {pastGuesses.map((guess, index) =>
+            renderGuessListItem(guess, pastGuesses.length - index)
+          )}
         </ScrollView>
       </View>
     </View>
@@ -101,6 +103,12 @@ const styles = StyleSheet.create({
     width: '80%',
   },
 
+  listContent: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end'
+  },
+
   guessListItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -108,5 +116,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 15,
     marginTop: 15,
+    width: '60%',
   },
 });
