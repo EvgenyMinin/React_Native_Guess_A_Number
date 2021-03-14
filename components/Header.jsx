@@ -6,7 +6,15 @@ import { colors } from '../constants/colors';
 
 const Header = ({ title }) => {
   return (
-    <View style={styles.header}>
+    <View
+      style={{
+        ...styles.headerBase,
+        ...Platform.select({
+          ios: styles.headerOS,
+          android: styles.headerAndroid,
+        }),
+      }}
+    >
       <TitleText style={styles.title}>{title}</TitleText>
     </View>
   );
@@ -15,15 +23,22 @@ const Header = ({ title }) => {
 export default Header;
 
 const styles = StyleSheet.create({
-  header: {
+  headerBase: {
     width: '100%',
     height: 90,
     paddingTop: 36,
-    backgroundColor: Platform.OS === 'android' ? colors.primary : 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    borderBottomColor: Platform.OS === 'ios' ? colors.border : 'transparent',
-    borderBottomWidth: Platform.OS === 'ios' ? 1 : 0,
+  },
+
+  headerOS: {
+    backgroundColor: 'white',
+    borderBottomColor: colors.border,
+    borderBottomWidth: 1,
+  },
+
+  headerAndroid: {
+    backgroundColor: colors.primary,
   },
 
   title: {
