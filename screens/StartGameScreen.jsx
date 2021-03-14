@@ -18,19 +18,20 @@ import Input from '../components/Input';
 import MainButton from '../components/MainButton';
 import NumberContainer from '../components/NumberContainer';
 import TitleText from '../components/TitleText';
+
 import { colors } from '../constants/colors';
+
+import { getWidth } from './utils/getWidth';
 
 const StartGameScreen = ({ onStartGame }) => {
   const [enteredValue, setEnteredValue] = useState('');
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState();
-  const [buttonWidth, setButtonWidth] = useState(
-    Dimensions.get('window').width / 4
-  );
+  const [buttonWidth, setButtonWidth] = useState(getWidth() / 4);
 
   useEffect(() => {
     const updateLayout = () => {
-      setButtonWidth(Dimensions.get('window').width / 4);
+      setButtonWidth(getWidth() / 4);
     };
 
     Dimensions.addEventListener('change', updateLayout);
@@ -43,7 +44,6 @@ const StartGameScreen = ({ onStartGame }) => {
   const numberInputHandler = (inputText) => {
     setEnteredValue(inputText.replace(/[^0-9]/g, ''));
   };
-
 
   const onDismiss = () => {
     Keyboard.dismiss();
