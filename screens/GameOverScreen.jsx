@@ -1,17 +1,14 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Image,
-  Text,
-  ScrollView,
-  Dimensions,
-} from 'react-native';
+import { View, StyleSheet, Image, Text, ScrollView } from 'react-native';
 
 import BodyText from '../components/BodyText';
 import MainButton from '../components/MainButton';
 import TitleText from '../components/TitleText';
+
 import { colors } from '../constants/colors';
+
+import { getHeight } from './utils/getHeight';
+import { getWidth } from './utils/getWidth';
 
 const GameOverScreen = ({ rounds, guessNumber, onNewGame }) => {
   return (
@@ -47,15 +44,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 10,
   },
 
   imageContainer: {
-    width: Dimensions.get('window').width * 0.7,
-    height: Dimensions.get('window').width * 0.7,
-    borderRadius: (Dimensions.get('window').width * 0.7) / 2,
+    width: getWidth() * 0.7,
+    height: getWidth() * 0.7,
+    borderRadius: (getWidth() * 0.7) / 2,
     borderWidth: 3,
     borderColor: 'black',
-    marginVertical: Dimensions.get('window').height / 30,
+    marginVertical: getHeight() / 30,
     overflow: 'hidden',
   },
 
@@ -66,12 +64,12 @@ const styles = StyleSheet.create({
 
   resultContainer: {
     marginHorizontal: 30,
-    marginVertical: Dimensions.get('window').height / 60,
+    marginVertical: getHeight() / 60,
   },
 
   resultText: {
     textAlign: 'center',
-    fontSize: Dimensions.get('window').height < 400 ? 16 : 20,
+    fontSize: getHeight() < 400 ? 16 : 20,
   },
 
   highlight: {
