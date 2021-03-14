@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -24,10 +24,26 @@ const StartGameScreen = ({ onStartGame }) => {
   const [enteredValue, setEnteredValue] = useState('');
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState();
+  const [buttonWidth, setButtonWidth] = useState(
+    Dimensions.get('window').width / 4
+  );
+
+  useEffect(() => {
+    const updateLayout = () => {
+      setButtonWidth(Dimensions.get('window').width / 4);
+    };
+
+    Dimensions.addEventListener('change', updateLayout);
+
+    return () => {
+      Dimensions.removeEventListener('change', updateLayout);
+    };
+  });
 
   const numberInputHandler = (inputText) => {
     setEnteredValue(inputText.replace(/[^0-9]/g, ''));
   };
+
 
   const onDismiss = () => {
     Keyboard.dismiss();
@@ -72,7 +88,7 @@ const StartGameScreen = ({ onStartGame }) => {
 
   return (
     <ScrollView>
-      <KeyboardAvoidingView behavior='position'  keyboardVerticalOffset={30}>
+      <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={30}>
         <TouchableWithoutFeedback onPress={onDismiss}>
           <View style={styles.screen}>
             <TitleText style={styles.title}>Start a New Game!</TitleText>
@@ -92,7 +108,7 @@ const StartGameScreen = ({ onStartGame }) => {
               />
 
               <View style={styles.buttonListContainer}>
-                <View style={styles.button}>
+                <View style={{ width: buttonWidth }}>
                   <Button
                     title="Reset"
                     color={colors.secondary}
@@ -100,7 +116,7 @@ const StartGameScreen = ({ onStartGame }) => {
                   />
                 </View>
 
-                <View style={styles.button}>
+                <View style={{ width: buttonWidth }}>
                   <Button
                     title="Confirm"
                     color={colors.primary}
@@ -143,11 +159,6 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-  },
-
-  button: {
-    width: Dimensions.get('window').width / 4,
-    marginVertical: 6,
   },
 
   input: {
