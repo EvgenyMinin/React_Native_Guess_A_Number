@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 
@@ -19,9 +19,7 @@ export default function App() {
   });
 
   if (!fontLoaded) {
-    return (
-      <AppLoading />
-    );
+    return <AppLoading />;
   }
 
   const newGameHandler = () => {
@@ -54,13 +52,13 @@ export default function App() {
   }
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView style={styles.screen}>
       <Header title="Guess a Number" />
 
       {content}
 
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 }
 
